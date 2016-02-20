@@ -21,9 +21,8 @@ class Home extends Component {
 
     return buyersList.map((buyer) => {
       return (
-        <div className="col-xs-6">
+        <div key={buyer.id} className="col-xs-6">
           <Buyer
-            key={buyer.id}
             buyer={buyer}
             onClick={::this.handleBuyerClick}
           />

@@ -25,6 +25,20 @@ class Auctions extends Component {
     history.push(`/auctions/detail/${params.buyerId}/${auctionId}`);
   }
 
+  renderAuctions ({ auctions }) {
+    return auctions
+      .map(auction => {
+        return (
+          <div key={auction.id} className="col-xs-6">
+            <Auction
+              auction={auction}
+              onClick={::this.handleAuctionClick}
+            />
+          </div>
+        );
+      });
+  }
+
   render () {
     const { auctionList } = this.props;
 
@@ -32,21 +46,9 @@ class Auctions extends Component {
       return <Loader />;
     }
 
-    const auctions = auctionList.auctions
-      .map(auction => {
-        return (
-          <Auction
-            key={auction.id}
-            auction={auction}
-            onClick={::this.handleAuctionClick}
-          />
-        );
-      });
-
     return (
-      <div>
-        <p>Auctions container</p>
-        {auctions}
+      <div className="container">
+        {this.renderAuctions(auctionList)}
       </div>
     );
   }

@@ -32,6 +32,22 @@ export function placeBid (auctionId, buyerId) {
   };
 }
 
+export function getHighestBidder (historyList, highestBidderId) {
+  const highestBidder = historyList
+    .find(history =>
+      history.buyer.id &&
+      history.buyer.id === highestBidderId
+    );
+
+  if (highestBidder) {
+    return highestBidder.buyer;
+  }
+
+  return {
+    name: 'None',
+  };
+}
+
 
 function _fetchAuctions () {
   return async dispatch => {
