@@ -83,6 +83,19 @@ class Auctions extends Component {
     );
   }
 
+  renderBidButton ({ isFinished }, { isPlacingBid }) {
+    if (isFinished) {
+      return null;
+    }
+
+    return (
+      <button className="btn btn-primary" onClick={::this.handlePlaceBid}>
+        {isPlacingBid && <i className="fa fa-spinner fa-spin"></i>}
+        Place Bid
+      </button>
+    );
+  }
+
   render () {
     const { auctionBid, auctionDetail } = this.props;
     const { auction, isFetching } = auctionDetail;
@@ -106,11 +119,7 @@ class Auctions extends Component {
             {this.renderHighestBidder(auctionBid, auctionDetail)}
           </div>
         </div>
-
-        <button className="btn btn-primary" onClick={::this.handlePlaceBid}>
-          {auctionBid.isPlacingBid && <i className="fa fa-spinner fa-spin"></i>}
-          Place Bid
-        </button>
+        {this.renderBidButton(auction, auctionBid)}
       </div>
     );
   }
