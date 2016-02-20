@@ -62,9 +62,7 @@ class Auctions extends Component {
 
     if (bidAuction && bidAuction.history.length) {
       highestBidder = getHighestBidder(bidAuction.history, bidAuction.highestBidder);
-    }
-
-    if (detailAuction.history.length) {
+    } else if (detailAuction.history.length) {
       highestBidder = getHighestBidder(detailAuction.history, detailAuction.highestBidder);
     }
 
