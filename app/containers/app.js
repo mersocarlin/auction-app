@@ -10,6 +10,15 @@ class App extends Component {
   render () {
     return (
       <div className="app">
+        <nav className="navbar navbar-default">
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <a className="navbar-brand" href="#">
+              Hemerson Carlin - Auction App
+            </a>
+          </div>
+        </div>
+      </nav>
         {this.props.children}
       </div>
     );
