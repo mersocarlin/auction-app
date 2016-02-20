@@ -12,6 +12,7 @@ export const DETAIL_AUCTION_RESET = 'DETAIL_AUCTION_RESET';
 export const PLACE_BID_REQUEST = 'PLACE_BID_REQUEST';
 export const PLACE_BID_SUCCESS = 'PLACE_BID_SUCCESS';
 export const PLACE_BID_FAILURE = 'PLACE_BID_FAILURE';
+export const RESET_BID_AUCTION = 'RESET_BID_AUCTION';
 
 
 export function fetchAuctions () {
@@ -34,6 +35,10 @@ export function placeBid (auctionId, buyerId) {
 
 export function resetAuction () {
   return { type: DETAIL_AUCTION_RESET };
+}
+
+export function resetBidAuction () {
+  return { type: RESET_BID_AUCTION };
 }
 
 export function getHighestBidder (historyList, highestBidderId) {

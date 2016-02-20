@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import Item from '../components/item';
+import Label from '../components/label';
 import Loader from '../components/loader';
 
 import {
@@ -9,6 +10,7 @@ import {
   getHighestBidder,
   placeBid,
   resetAuction,
+  resetBidAuction,
 } from '../actions/auctions';
 
 
@@ -29,6 +31,7 @@ class Auctions extends Component {
 
   componentWillUnmount () {
     this.props.dispatch(resetAuction());
+    this.props.dispatch(resetBidAuction());
   }
 
   handlePlaceBid () {
@@ -67,9 +70,16 @@ class Auctions extends Component {
     }
 
     if (highestBidder) {
+      const itsCurrentBuyer = highestBidder.id === parseInt(this.props.params.buyerId, 10);
+      const labelType = itsCurrentBuyer ? 'success' : 'warning';
+      const labelText = itsCurrentBuyer ? 'It\'s you!' : 'It\'s not you.';
+
       return (
         <div>
-          {highestBidder.name}
+          {`${highestBidder.name} `}
+          <Label type={labelType}>
+            {labelText}
+          </Label>
         </div>
       );
     }
@@ -81,7 +91,7 @@ class Auctions extends Component {
     );
   }
 
-  renderBidButton ({ isFinished }, { isPlacingBid }) {
+  renderBidButton ({ isPlacingBid }, { isFinished }) {
     if (isFinished) {
       return null;
     }
@@ -99,7 +109,11 @@ class Auctions extends Component {
     const { auction, isFetching } = auctionDetail;
 
     if (!auction || isFetching) {
-      return <Loader />;
+      return (
+        <div className="container">
+          <Loader />
+        </div>
+      );
     }
 
     return (
@@ -117,7 +131,7 @@ class Auctions extends Component {
             {this.renderHighestBidder(auctionBid, auctionDetail)}
           </div>
         </div>
-        {this.renderBidButton(auction, auctionBid)}
+        {this.renderBidButton(auctionBid, auctionDetail)}
       </div>
     );
   }

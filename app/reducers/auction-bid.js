@@ -2,6 +2,7 @@ import {
   PLACE_BID_REQUEST,
   PLACE_BID_SUCCESS,
   PLACE_BID_FAILURE,
+  RESET_BID_AUCTION,
 } from '../actions/auctions';
 
 
@@ -32,6 +33,8 @@ export default (state = INITIAL_STATE, action) => {
         isPlacingBid: false,
         error: action.error,
       };
+    case RESET_BID_AUCTION:
+      return { ...INITIAL_STATE };
     default:
       return state;
   }
