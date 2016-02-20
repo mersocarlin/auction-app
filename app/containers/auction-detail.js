@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Item from '../components/item';
 import Loader from '../components/loader';
 
-import { fetchAuctionById, placeBid } from '../actions/auctions';
+import { fetchAuctionById, getHighestBidder, placeBid } from '../actions/auctions';
 
 
 class Auctions extends Component {
@@ -49,31 +49,20 @@ class Auctions extends Component {
   }
 
   renderHighestBidder ({ auction: bidAuction }, { auction: detailAuction }) {
-    const getHighestBidderName = (historyList, highestBidder) => {
-      return historyList
-        .find(history =>
-          history.buyer.id &&
-          history.buyer.id === highestBidder
-        );
-    };
-
     let highestBidder;
 
     if (bidAuction && bidAuction.history.length) {
-      highestBidder = getHighestBidderName(bidAuction.history, bidAuction.highestBidder);
-      return (
-        <div>
-          From bid: {highestBidder.buyer.name}
-        </div>
-      );
+      highestBidder = getHighestBidder(bidAuction.history, bidAuction.highestBidder);
     }
 
     if (detailAuction.history.length) {
-      highestBidder = getHighestBidderName(detailAuction.history, detailAuction.highestBidder);
+      highestBidder = getHighestBidder(detailAuction.history, detailAuction.highestBidder);
+    }
 
+    if (highestBidder) {
       return (
         <div>
-          From detail: {highestBidder.buyer.name}
+          {highestBidder.name}
         </div>
       );
     }
@@ -94,13 +83,25 @@ class Auctions extends Component {
     }
 
     return (
-      <div>
-        <p>Auction Detail container</p>
+      <div className="container">
         <Item item={auction.item} />
-        {this.renderHighestBid(auctionBid, auctionDetail)}
-        {this.renderHighestBidder(auctionBid, auctionDetail)}
-        <button onClick={::this.handlePlaceBid}>Place Bid</button>
-        { auctionBid.isPlacingBid && <div>placing bid...</div>}
+
+        <div className="panel panel-default">
+          <div className="panel-heading">
+            <h3 className="panel-title">
+              Auction stats
+            </h3>
+          </div>
+          <div className="panel-body">
+            {this.renderHighestBid(auctionBid, auctionDetail)}
+            {this.renderHighestBidder(auctionBid, auctionDetail)}
+          </div>
+        </div>
+
+        <button className="btn btn-primary" onClick={::this.handlePlaceBid}>
+          {auctionBid.isPlacingBid && <i className="fa fa-spinner fa-spin"></i>}
+          Place Bid
+        </button>
       </div>
     );
   }

@@ -35,6 +35,7 @@ export function placeBid (auctionId, buyerId) {
 export function getHighestBidder (historyList, highestBidderId) {
   const highestBidder = historyList
     .find(history =>
+      history.buyer &&
       history.buyer.id &&
       history.buyer.id === highestBidderId
     );
