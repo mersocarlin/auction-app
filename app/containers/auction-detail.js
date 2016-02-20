@@ -4,7 +4,12 @@ import { connect } from 'react-redux';
 import Item from '../components/item';
 import Loader from '../components/loader';
 
-import { fetchAuctionById, getHighestBidder, placeBid } from '../actions/auctions';
+import {
+  fetchAuctionById,
+  getHighestBidder,
+  placeBid,
+  resetAuction,
+} from '../actions/auctions';
 
 
 class Auctions extends Component {
@@ -20,6 +25,10 @@ class Auctions extends Component {
     const { dispatch, params } = this.props;
 
     dispatch(fetchAuctionById(params.auctionId));
+  }
+
+  componentWillUnmount () {
+    this.props.dispatch(resetAuction());
   }
 
   handlePlaceBid () {
