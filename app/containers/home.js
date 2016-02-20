@@ -13,27 +13,32 @@ class Home extends Component {
     this.props.history.push(`/auctions/${id}`);
   }
 
-  render () {
+  renderBuyers () {
     const buyersList = [
       { id: 1, name: 'Buyer 1' },
       { id: 2, name: 'Buyer 2' },
     ];
 
-    const buyers = buyersList
-      .map((buyer) => {
-        return (
+    return buyersList.map((buyer) => {
+      return (
+        <div className="col-xs-6">
           <Buyer
             key={buyer.id}
             buyer={buyer}
             onClick={::this.handleBuyerClick}
           />
-        );
-      });
+        </div>
+      );
+    });
+  }
 
+  render () {
     return (
-      <div>
-        Choose your Buyer:
-        {buyers}
+      <div className="container">
+        <h3>Choose your Buyer:</h3>
+        <div className="row">
+          {this.renderBuyers()}
+        </div>
       </div>
     );
   }

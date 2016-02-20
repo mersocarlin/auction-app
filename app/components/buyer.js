@@ -12,9 +12,11 @@ export default class Auction extends Component {
 
     return (
       <div className="buyer-component" onClick={() => onClick(buyer.id)}>
-        <p>
-          Name: {buyer.name}
-        </p>
+        <div className="panel panel-default">
+          <div className="panel-body">
+            {buyer.name}
+          </div>
+        </div>
       </div>
     );
   }

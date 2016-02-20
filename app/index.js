@@ -6,6 +6,8 @@ import 'jquery';
 import 'bootstrap/dist/js/bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 
+import './styles/app.scss';
+
 
 const createHashHistory = require('history/lib/createHashHistory');
 
