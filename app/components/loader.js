@@ -5,7 +5,7 @@ export default class Loader extends Component {
   render () {
     return (
       <div className="loader-component">
-        Loading...
+        <i className="fa fa-spinner fa-spin"></i>
       </div>
     );
   }
